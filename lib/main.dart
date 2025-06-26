@@ -2,166 +2,298 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-      home: Profile()
+      home: EngineTools()
   ));
 }
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
+class EngineTools extends StatelessWidget {
+  const EngineTools({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'Engine CC Calculator',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.blue,
-      ),
-      body: Column(
-        children: [
-          SizedBox(height: 20,),
-          Center(
-            child: Text(
-              'User Profile',
-              style: TextStyle(
-                background: Paint()..color = Colors.blue
-                  ..style = PaintingStyle.fill
-                  ..strokeWidth = 20,
-                color: Colors.white,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ),
-          Icon(Icons.account_circle, size: 100,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+      body: Container(
+        color: Colors.blue[50],
+        child: SafeArea(
+          child: Column(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Name',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+              // Header with tools icon and title
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 30),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.blue.withOpacity(0.3),
+                            blurRadius: 15,
+                            offset: Offset(0, 8),
                           ),
-                        ),
-                        Text(
-                          'Gian Duhan',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      child: Icon(
+                        Icons.build,
+                        size: 45,
+                        color: Colors.blue[700],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Email',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                    SizedBox(height: 20),
+                    Text(
+                      'ENGINE TOOLS',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 6.0,
+                        color: Colors.blue[800],
+                        shadows: [
+                          Shadow(
+                            color: Colors.blue.withOpacity(0.3),
+                            offset: Offset(0, 2),
+                            blurRadius: 4,
                           ),
-                        ),
-                        Text(
-                          'giannicolaiduhan@gmail.com',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Company',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: 60,
+                      height: 3,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.blue[400]!, Colors.blue[600]!],
                         ),
-                        Text(
-                          'Batangas State University',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
+                        borderRadius: BorderRadius.circular(2),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Contact No.',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          '0998477474',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
+                  ],
+                ),
+              ),
 
+              // Main content area with buttons
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Four Stroke Button
+                      Container(
+                        width: 300,
+                        height: 90,
+                        margin: EdgeInsets.symmetric(vertical: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.blue.withOpacity(0.2),
+                              blurRadius: 20,
+                              offset: Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                        child: OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: Colors.blue[300]!, width: 2),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            backgroundColor: Colors.transparent,
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Colors.white,
+                                  Colors.blue[50]!,
+                                ],
+                              ),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue[100],
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      Icons.settings,
+                                      size: 30,
+                                      color: Colors.blue[700],
+                                    ),
+                                  ),
+                                  SizedBox(width: 20),
+                                  Text(
+                                    'Four Stroke',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue[800],
+                                      letterSpacing: 1.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Two Stroke Button
+                      Container(
+                        width: 300,
+                        height: 90,
+                        margin: EdgeInsets.symmetric(vertical: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.blue.withOpacity(0.2),
+                              blurRadius: 20,
+                              offset: Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                        child: OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: Colors.blue[300]!, width: 2),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            backgroundColor: Colors.transparent,
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Colors.white,
+                                  Colors.blue[50]!,
+                                ],
+                              ),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue[100],
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      Icons.settings,
+                                      size: 30,
+                                      color: Colors.blue[700],
+                                    ),
+                                  ),
+                                  SizedBox(width: 20),
+                                  Text(
+                                    'Two Stroke',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue[800],
+                                      letterSpacing: 1.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+              ),
+
+              // Back button
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(left: 30, bottom: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.blue.withOpacity(0.2),
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 30,
+                      color: Colors.blue[600],
+                    ),
+                  ),
+                ),
+              ),
+
+              // Footer text
+              Container(
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  children: [
+                    Text(
+                      'Gian Nicolai Sinag Duhan',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.blue[700],
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 0),
+                    Text(
+                      'Batangas State University TNEU',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.blue[600],
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 0),
+                    Text(
+                      'Information Technology',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.blue[600],
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          Spacer(),
-          Spacer(),
-          Spacer(),
-          Spacer(),
-          Spacer(),
-          Spacer(),
-          Spacer(),
-          Spacer(),
-          Spacer(),
-          Spacer(),
-          Center(
-            child: ElevatedButton(onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 150,
-                ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.logout),
-                  SizedBox(width: 8),
-                  Text('Logout'),
-                ],
-              ),
-            ),
-          ),
-          Spacer(),
-        ],
+        ),
       ),
     );
   }
