@@ -1,6 +1,6 @@
 {
-    "name": "motor_engine_displacement_calculator",
-    "short_name": "motor_engine_displacement_calculator",
+    "name": "engine_calc",
+    "short_name": "engine_calc",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
