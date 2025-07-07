@@ -33,7 +33,10 @@ List<Map<String, String>> getCarbRecommendations(double displacement) {
   ];
 }
 
-List<Map<String, String>> getValveRecommendationsDetailed(double displacement) {
+List<Map<String, String>> getValveRecommendationsDetailed(double displacement, String engineType) {
+  if (engineType.toLowerCase().contains('two')) {
+    return [];
+  }
   // Detailed valve recommendations with intake and exhaust
   return [
     {

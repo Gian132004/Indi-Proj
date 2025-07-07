@@ -25,6 +25,8 @@ class _InputPageState extends State<InputPage> {
 
   void _calculateAndNavigate() {
     if (_formKey.currentState!.validate()) {
+      final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+      final engineType = args != null && args.containsKey('engineType') ? args['engineType'] : 'Unknown';
       Navigator.pushNamed(
         context,
         '/result',
@@ -33,6 +35,7 @@ class _InputPageState extends State<InputPage> {
           'stroke': double.parse(_strokeController.text),
           'cylinders': int.parse(_cylindersController.text),
           'strokePin': double.parse(_strokePinController.text),
+          'engineType': engineType,
         },
       );
     }
@@ -50,8 +53,22 @@ class _InputPageState extends State<InputPage> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Opacity(
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFe3f2fd),
+                  Color(0xFFbbdefb),
+                  Color(0xFF90caf9),
+                ],
+              ),
+            ),
+          ),
+          AnimatedOpacity(
             opacity: 0.15,
+            duration: Duration(seconds: 1),
             child: Image.asset(
               'assets/images/bg.jpg',
               width: double.infinity,
@@ -59,22 +76,22 @@ class _InputPageState extends State<InputPage> {
               fit: BoxFit.cover,
             ),
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.contain,
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        width: 300,
+                        height: 300,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
                     child: Card(
                       elevation: 8,
@@ -85,7 +102,6 @@ class _InputPageState extends State<InputPage> {
                         child: Form(
                           key: _formKey,
                           child: Column(
-                            mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
@@ -175,9 +191,9 @@ class _InputPageState extends State<InputPage> {
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ],
       ),

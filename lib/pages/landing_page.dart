@@ -19,8 +19,22 @@ class LandingPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Opacity(
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFe3f2fd),
+                  Color(0xFFbbdefb),
+                  Color(0xFF90caf9),
+                ],
+              ),
+            ),
+          ),
+          AnimatedOpacity(
             opacity: 0.15,
+            duration: Duration(seconds: 1),
             child: Image.asset(
               'assets/images/bg.jpg',
               width: double.infinity,
@@ -28,22 +42,22 @@ class LandingPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.contain,
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        width: 300,
+                        height: 300,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -82,9 +96,9 @@ class LandingPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ],
       ),
