@@ -9,7 +9,7 @@ import 'package:motor_engine_displacement_calculator/WorldTime/services/world_ti
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/home',
+    initialRoute: '/loading',
     routes: {
       '/': (context) => Listitems(),
       '/add': (context) => Addmotor(),
