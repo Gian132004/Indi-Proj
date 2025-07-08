@@ -3,21 +3,21 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class Loading extends StatefulWidget {
+  const Loading({super.key});
+
   @override
-  _LoadingState createState() => _LoadingState();
+  State<Loading> createState() => _LoadingState();
 }
 
 class _LoadingState extends State<Loading> {
 
   void getData() async {
-    // Convert string to Uri using Uri.parse()
-    Uri url = Uri.parse('https://jsonplaceholder.typicode.com/todos/1');
 
-    Response response = await get(url);
-    // print(response.body);
-    Map data = jsonDecode(response.body);
+    Response response = await get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+    Map data = jsonDecode (response.body);
     print(data);
     print(data['title']);
+
   }
 
   @override
