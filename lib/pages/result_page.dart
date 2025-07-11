@@ -77,7 +77,7 @@ class ResultPage extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    '${displacement.round()} cc',
+                                    '${displacement.toStringAsFixed(1)} cc',
                                     style: Theme.of(context).textTheme.displaySmall?.copyWith(
                                           color: Colors.blue.shade900,
                                           fontWeight: FontWeight.bold,
