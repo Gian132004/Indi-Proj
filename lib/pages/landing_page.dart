@@ -12,10 +12,12 @@ class LandingPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Select Engine Type'),
-        backgroundColor: Colors.blue.shade700,
-        elevation: 4,
-        foregroundColor: Colors.white,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.blue.shade700,
       ),
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       body: Stack(
         children: [
@@ -33,7 +35,7 @@ class LandingPage extends StatelessWidget {
             ),
           ),
           AnimatedOpacity(
-            opacity: 0.15,
+            opacity: 0.18,
             duration: Duration(seconds: 1),
             child: Image.asset(
               'assets/images/bg.jpg',
@@ -47,18 +49,19 @@ class LandingPage extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
-                    child: Center(
+                    padding: const EdgeInsets.only(top: 48.0, bottom: 16.0),
+                    child: Hero(
+                      tag: 'logo',
                       child: Image.asset(
                         'assets/images/logo.png',
-                        width: 300,
-                        height: 300,
+                        width: 220,
+                        height: 220,
                         fit: BoxFit.contain,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -68,31 +71,48 @@ class LandingPage extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                   color: Colors.blue.shade700,
                                   fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.1,
                                 )),
                         const SizedBox(height: 32),
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue.shade700,
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size(double.infinity, 56),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        Tooltip(
+                          message: 'Standard 4-stroke engine (most motorcycles/cars)',
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue.shade700,
+                              foregroundColor: Colors.white,
+                              minimumSize: const Size(double.infinity, 60),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                            ),
+                            icon: const Icon(Icons.directions_car),
+                            label: const Text('Four Stroke', style: TextStyle(fontSize: 22)),
+                            onPressed: () => _selectEngineType(context, 'Four Stroke'),
                           ),
-                          icon: const Icon(Icons.directions_car),
-                          label: const Text('Four Stroke', style: TextStyle(fontSize: 20)),
-                          onPressed: () => _selectEngineType(context, 'Four Stroke'),
                         ),
                         const SizedBox(height: 24),
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue.shade700,
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size(double.infinity, 56),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        Tooltip(
+                          message: '2-stroke engine (some motorcycles, small engines)',
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange.shade700,
+                              foregroundColor: Colors.white,
+                              minimumSize: const Size(double.infinity, 60),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                            ),
+                            icon: const Icon(Icons.motorcycle),
+                            label: const Text('Two Stroke', style: TextStyle(fontSize: 22)),
+                            onPressed: () => _selectEngineType(context, 'Two Stroke'),
                           ),
-                          icon: const Icon(Icons.motorcycle),
-                          label: const Text('Two Stroke', style: TextStyle(fontSize: 20)),
-                          onPressed: () => _selectEngineType(context, 'Two Stroke'),
                         ),
+                        const SizedBox(height: 40),
+                        Text(
+                          'Get started by selecting your engine type. You can calculate engine displacement, compression ratio, and top speed with recommendations.',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                color: Colors.blueGrey.shade700,
+                                fontSize: 16,
+                              ),
+                        ),
+                        const SizedBox(height: 24),
                       ],
                     ),
                   ),

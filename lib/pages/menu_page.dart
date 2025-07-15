@@ -15,10 +15,12 @@ class MenuPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Engine Tools'),
-        backgroundColor: Colors.blue.shade700,
-        elevation: 4,
-        foregroundColor: Colors.white,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.blue.shade700,
       ),
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       body: Stack(
         children: [
@@ -36,7 +38,7 @@ class MenuPage extends StatelessWidget {
             ),
           ),
           AnimatedOpacity(
-            opacity: 0.15,
+            opacity: 0.18,
             duration: Duration(seconds: 1),
             child: Image.asset(
               'assets/images/bg.jpg',
@@ -50,18 +52,19 @@ class MenuPage extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
-                    child: Center(
+                    padding: const EdgeInsets.only(top: 48.0, bottom: 16.0),
+                    child: Hero(
+                      tag: 'logo',
                       child: Image.asset(
                         'assets/images/logo.png',
-                        width: 300,
-                        height: 300,
+                        width: 180,
+                        height: 180,
                         fit: BoxFit.contain,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -73,41 +76,60 @@ class MenuPage extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 )),
                         const SizedBox(height: 32),
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue.shade700,
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size(double.infinity, 56),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        Tooltip(
+                          message: 'Calculate engine displacement (cc)',
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue.shade700,
+                              foregroundColor: Colors.white,
+                              minimumSize: const Size(double.infinity, 56),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                            ),
+                            icon: const Icon(Icons.calculate),
+                            label: const Text('Engine CC Calculator', style: TextStyle(fontSize: 20)),
+                            onPressed: () => _navigate(context, '/cc_input', engineType),
                           ),
-                          icon: const Icon(Icons.calculate),
-                          label: const Text('Engine CC Calculator', style: TextStyle(fontSize: 18)),
-                          onPressed: () => _navigate(context, '/cc_input', engineType),
                         ),
                         const SizedBox(height: 24),
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue.shade700,
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size(double.infinity, 56),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        Tooltip(
+                          message: 'Calculate compression ratio (Four Stroke only)',
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange.shade700,
+                              foregroundColor: Colors.white,
+                              minimumSize: const Size(double.infinity, 56),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                            ),
+                            icon: const Icon(Icons.compress),
+                            label: const Text('Compression Calculator', style: TextStyle(fontSize: 20)),
+                            onPressed: () => _navigate(context, '/compression', engineType),
                           ),
-                          icon: const Icon(Icons.compress),
-                          label: const Text('Compression Calculator', style: TextStyle(fontSize: 18)),
-                          onPressed: () => _navigate(context, '/compression', engineType),
                         ),
                         const SizedBox(height: 24),
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue.shade700,
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size(double.infinity, 56),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        Tooltip(
+                          message: 'Calculate theoretical top speed (Four Stroke only)',
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green.shade700,
+                              foregroundColor: Colors.white,
+                              minimumSize: const Size(double.infinity, 56),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                            ),
+                            icon: const Icon(Icons.speed),
+                            label: const Text('Top Speed Calculator', style: TextStyle(fontSize: 20)),
+                            onPressed: () => _navigate(context, '/top_speed', engineType),
                           ),
-                          icon: const Icon(Icons.speed),
-                          label: const Text('Top Speed Calculator', style: TextStyle(fontSize: 18)),
-                          onPressed: () => _navigate(context, '/top_speed', engineType),
                         ),
+                        const SizedBox(height: 40),
+                        Text(
+                          'Select a tool to begin calculations or get recommendations for your engine build.',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                color: Colors.blueGrey.shade700,
+                                fontSize: 16,
+                              ),
+                        ),
+                        const SizedBox(height: 24),
                       ],
                     ),
                   ),
