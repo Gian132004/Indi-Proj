@@ -54,8 +54,8 @@ class LandingPage extends StatelessWidget {
                       tag: 'logo',
                       child: Image.asset(
                         'assets/images/logo.png',
-                        width: 220,
-                        height: 220,
+                        width: 120,
+                        height: 120,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -65,13 +65,14 @@ class LandingPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.settings_input_component, size: 64, color: Colors.blue.shade700),
+                        Icon(Icons.settings_input_component, size: 36, color: Colors.blue.shade700),
                         const SizedBox(height: 32),
                         Text('Choose your engine type',
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                   color: Colors.blue.shade700,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 1.1,
+                                  fontSize: 18,
                                 )),
                         const SizedBox(height: 32),
                         Tooltip(
@@ -80,11 +81,12 @@ class LandingPage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue.shade700,
                               foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 60),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                              minimumSize: const Size(double.infinity, 40),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             ),
-                            icon: const Icon(Icons.directions_car),
-                            label: const Text('Four Stroke', style: TextStyle(fontSize: 22)),
+                            icon: const Icon(Icons.directions_car, size: 18),
+                            label: const Text('Four Stroke', style: TextStyle(fontSize: 14)),
                             onPressed: () => _selectEngineType(context, 'Four Stroke'),
                           ),
                         ),
@@ -95,11 +97,12 @@ class LandingPage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.orange.shade700,
                               foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 60),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                              minimumSize: const Size(double.infinity, 40),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             ),
-                            icon: const Icon(Icons.motorcycle),
-                            label: const Text('Two Stroke', style: TextStyle(fontSize: 22)),
+                            icon: const Icon(Icons.motorcycle, size: 18),
+                            label: const Text('Two Stroke', style: TextStyle(fontSize: 14)),
                             onPressed: () => _selectEngineType(context, 'Two Stroke'),
                           ),
                         ),
@@ -107,9 +110,9 @@ class LandingPage extends StatelessWidget {
                         Text(
                           'Get started by selecting your engine type. You can calculate engine displacement, compression ratio, and top speed with recommendations.',
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 color: Colors.blueGrey.shade700,
-                                fontSize: 16,
+                                fontSize: 12,
                               ),
                         ),
                         const SizedBox(height: 24),

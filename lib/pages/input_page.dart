@@ -122,8 +122,8 @@ class _InputPageState extends State<InputPage> {
                       tag: 'logo',
                       child: Image.asset(
                         'assets/images/logo.png',
-                        width: 120,
-                        height: 120,
+                        width: 60,
+                        height: 60,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -136,7 +136,7 @@ class _InputPageState extends State<InputPage> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
                       color: Colors.white,
                       child: Padding(
-                        padding: const EdgeInsets.all(32.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -144,13 +144,14 @@ class _InputPageState extends State<InputPage> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.engineering, color: Colors.blue.shade700, size: 32),
+                                  Icon(Icons.engineering, color: Colors.blue.shade700, size: 18),
                                   const SizedBox(width: 10),
                                   Text('Engine Displacement Input',
-                                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                             color: Colors.blue.shade700,
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 1.1,
+                                            fontSize: 12,
                                           )),
                                 ],
                               ),

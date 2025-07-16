@@ -96,8 +96,8 @@ class ResultPage extends StatelessWidget {
                       tag: 'logo',
                       child: Image.asset(
                         'assets/images/logo.png',
-                        width: 100,
-                        height: 100,
+                        width: 60,
+                        height: 60,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -141,17 +141,18 @@ class ResultPage extends StatelessWidget {
                           ),
                           margin: const EdgeInsets.only(bottom: 32),
                           child: Padding(
-                            padding: const EdgeInsets.all(32.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: Column(
                               children: [
-                                Icon(Icons.speed, color: Colors.blue.shade700, size: 48),
+                                Icon(Icons.speed, color: Colors.blue.shade700, size: 24),
                                 const SizedBox(height: 12),
                                 Text(
                                   'Engine Displacement',
-                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1.2,
+                                        fontSize: 12,
                                       ),
                                 ),
                                 const SizedBox(height: 8),
@@ -160,7 +161,7 @@ class ResultPage extends StatelessWidget {
                                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
                                         color: Colors.blue.shade900,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 40,
+                                        fontSize: 18,
                                       ),
                                 ),
                               ],

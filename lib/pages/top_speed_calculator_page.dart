@@ -169,8 +169,8 @@ class _TopSpeedCalculatorPageState extends State<TopSpeedCalculatorPage> {
                       tag: 'logo',
                       child: Image.asset(
                         'assets/images/logo.png',
-                        width: 100,
-                        height: 100,
+                        width: 60,
+                        height: 60,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -183,7 +183,7 @@ class _TopSpeedCalculatorPageState extends State<TopSpeedCalculatorPage> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
                       color: Colors.white,
                       child: Padding(
-                        padding: const EdgeInsets.all(32.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -192,12 +192,13 @@ class _TopSpeedCalculatorPageState extends State<TopSpeedCalculatorPage> {
                               // Transmission type selector
                               Row(
                                 children: [
-                                  Icon(Icons.settings_suggest, color: Colors.blue.shade700),
+                                  Icon(Icons.settings_suggest, color: Colors.blue.shade700, size: 18),
                                   const SizedBox(width: 10),
                                   Text('Transmission Type:',
-                                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                             color: Colors.blue.shade700,
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 12,
                                           )),
                                   const SizedBox(width: 16),
                                   DropdownButton<String>(

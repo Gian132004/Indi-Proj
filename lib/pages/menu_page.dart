@@ -57,8 +57,8 @@ class MenuPage extends StatelessWidget {
                       tag: 'logo',
                       child: Image.asset(
                         'assets/images/logo.png',
-                        width: 180,
-                        height: 180,
+                        width: 80,
+                        height: 80,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -68,12 +68,13 @@ class MenuPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.settings, size: 56, color: Colors.blue.shade700),
+                        Icon(Icons.settings, size: 28, color: Colors.blue.shade700),
                         const SizedBox(height: 16),
                         Text('Selected Engine: $engineType',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                   color: Colors.blue.shade700,
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 14,
                                 )),
                         const SizedBox(height: 32),
                         Tooltip(
@@ -82,11 +83,12 @@ class MenuPage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue.shade700,
                               foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 56),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                              minimumSize: const Size(double.infinity, 36),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                             ),
-                            icon: const Icon(Icons.calculate),
-                            label: const Text('Engine CC Calculator', style: TextStyle(fontSize: 20)),
+                            icon: const Icon(Icons.calculate, size: 16),
+                            label: const Text('Engine CC Calculator', style: TextStyle(fontSize: 12)),
                             onPressed: () => _navigate(context, '/cc_input', engineType),
                           ),
                         ),
@@ -97,11 +99,12 @@ class MenuPage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.orange.shade700,
                               foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 56),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                              minimumSize: const Size(double.infinity, 36),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                             ),
-                            icon: const Icon(Icons.compress),
-                            label: const Text('Compression Calculator', style: TextStyle(fontSize: 20)),
+                            icon: const Icon(Icons.compress, size: 16),
+                            label: const Text('Compression Calculator', style: TextStyle(fontSize: 12)),
                             onPressed: () => _navigate(context, '/compression', engineType),
                           ),
                         ),
@@ -112,11 +115,12 @@ class MenuPage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green.shade700,
                               foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 56),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                              minimumSize: const Size(double.infinity, 36),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                             ),
-                            icon: const Icon(Icons.speed),
-                            label: const Text('Top Speed Calculator', style: TextStyle(fontSize: 20)),
+                            icon: const Icon(Icons.speed, size: 16),
+                            label: const Text('Top Speed Calculator', style: TextStyle(fontSize: 12)),
                             onPressed: () => _navigate(context, '/top_speed', engineType),
                           ),
                         ),
@@ -124,9 +128,9 @@ class MenuPage extends StatelessWidget {
                         Text(
                           'Select a tool to begin calculations or get recommendations for your engine build.',
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 color: Colors.blueGrey.shade700,
-                                fontSize: 16,
+                                fontSize: 10,
                               ),
                         ),
                         const SizedBox(height: 24),
