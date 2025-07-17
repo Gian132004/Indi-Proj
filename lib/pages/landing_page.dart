@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'menu_page.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
   void _selectEngineType(BuildContext context, String type) {
-    Navigator.pushNamed(context, '/menu', arguments: {'engineType': type});
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const MenuPageWrapper(),
+      settings: RouteSettings(arguments: {'engineType': type}),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOutCubic;
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(position: animation.drive(tween), child: child);
+      },
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Select Engine Type'),
+        title: Text('Select Engine Type', style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: Colors.blue.shade700,
+        foregroundColor: Colors.blue.shade800,
       ),
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
+          // Gradient background
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -34,9 +47,10 @@ class LandingPage extends StatelessWidget {
               ),
             ),
           ),
+          // Subtle background image overlay
           AnimatedOpacity(
-            opacity: 0.18,
-            duration: Duration(seconds: 1),
+            opacity: 0.15,
+            duration: const Duration(seconds: 1),
             child: Image.asset(
               'assets/images/bg.jpg',
               width: double.infinity,
@@ -52,11 +66,29 @@ class LandingPage extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 48.0, bottom: 16.0),
                     child: Hero(
                       tag: 'logo',
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                        width: 120,
-                        height: 120,
-                        fit: BoxFit.contain,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.blue.shade100.withOpacity(0.4),
+                                blurRadius: 32,
+                                offset: const Offset(0, 12),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(32),
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              width: 130,
+                              height: 130,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -65,57 +97,72 @@ class LandingPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.settings_input_component, size: 36, color: Colors.blue.shade700),
-                        const SizedBox(height: 32),
-                        Text('Choose your engine type',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  color: Colors.blue.shade700,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1.1,
-                                  fontSize: 18,
-                                )),
-                        const SizedBox(height: 32),
+                        Icon(Icons.settings_input_component, size: 40, color: Colors.blue.shade800),
+                        const SizedBox(height: 36),
+                        Text(
+                          'Choose your engine type',
+                          style: GoogleFonts.poppins(
+                            color: Colors.blue.shade800,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.1,
+                            fontSize: 22,
+                          ),
+                        ),
+                        const SizedBox(height: 36),
                         Tooltip(
                           message: 'Standard 4-stroke engine (most motorcycles/cars)',
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue.shade700,
-                              foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 40),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          child: AnimatedScale(
+                            scale: 1.0,
+                            duration: const Duration(milliseconds: 150),
+                            child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue.shade800,
+                                foregroundColor: Colors.white,
+                                minimumSize: const Size(double.infinity, 48),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                                elevation: 10,
+                                shadowColor: Colors.blue.shade200,
+                              ),
+                              icon: const Icon(Icons.directions_car, size: 22),
+                              label: const Text('Four Stroke', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                              onPressed: () => _selectEngineType(context, 'Four Stroke'),
                             ),
-                            icon: const Icon(Icons.directions_car, size: 18),
-                            label: const Text('Four Stroke', style: TextStyle(fontSize: 14)),
-                            onPressed: () => _selectEngineType(context, 'Four Stroke'),
                           ),
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 28),
                         Tooltip(
                           message: '2-stroke engine (some motorcycles, small engines)',
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orange.shade700,
-                              foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 40),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          child: AnimatedScale(
+                            scale: 1.0,
+                            duration: const Duration(milliseconds: 150),
+                            child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.lightBlueAccent.shade700,
+                                foregroundColor: Colors.white,
+                                minimumSize: const Size(double.infinity, 48),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                                elevation: 10,
+                                shadowColor: Colors.blue.shade200,
+                              ),
+                              icon: const Icon(Icons.motorcycle, size: 22),
+                              label: const Text('Two Stroke', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                              onPressed: () => _selectEngineType(context, 'Two Stroke'),
                             ),
-                            icon: const Icon(Icons.motorcycle, size: 18),
-                            label: const Text('Two Stroke', style: TextStyle(fontSize: 14)),
-                            onPressed: () => _selectEngineType(context, 'Two Stroke'),
                           ),
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 44),
                         Text(
                           'Get started by selecting your engine type. You can calculate engine displacement, compression ratio, and top speed with recommendations.',
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Colors.blueGrey.shade700,
-                                fontSize: 12,
-                              ),
+                          style: GoogleFonts.poppins(
+                            color: Colors.blueGrey.shade700,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 32),
                       ],
                     ),
                   ),
@@ -126,5 +173,16 @@ class LandingPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+// Wrapper for MenuPage to support custom transition
+class MenuPageWrapper extends StatelessWidget {
+  const MenuPageWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+    return MenuPage(key: key);
   }
 } 
