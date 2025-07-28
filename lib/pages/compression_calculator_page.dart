@@ -18,10 +18,6 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
   double? _compressionRatio;
   String? _error;
 
-  @override
-  void dispose() {
-    _boreController.dispose();
-    _strokeController.dispose();
     _chamberController.dispose();
     _pistonController.dispose();
     _gasketController.dispose();

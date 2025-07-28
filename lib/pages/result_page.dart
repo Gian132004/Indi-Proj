@@ -1,95 +1,129 @@
 import 'package:flutter/material.dart';
-import 'recommendation_utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'recommendation_utils.dart';
 
 class ResultPage extends StatelessWidget {
   const ResultPage({super.key});
 
+  double calculateDisplacement(double bore, double stroke, int cylinders) {
+    return (3.14159 / 4) * bore * bore * stroke * cylinders;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final double bore = args['bore'];
-    final double stroke = args['stroke'];
-    final int cylinders = args['cylinders'];
-    final double strokePin = args['strokePin'];
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    
+    if (args == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Error', style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+        ),
+        body: const Center(child: Text('No data provided')),
+      );
+    }
+
+    final double bore = args['bore'] ?? 0.0;
+    final double stroke = args['stroke'] ?? 0.0;
+    final int cylinders = args['cylinders'] ?? 0;
+    final double strokePin = args['strokePin'] ?? 0.0;
     final String engineType = args['engineType'] ?? 'Unknown';
 
     final double displacement = calculateDisplacement(bore, stroke, cylinders);
-    final carbRecs = getCarbRecommendations(
-      bore: bore,
-      stroke: stroke,
-      cylinders: cylinders,
-      displacement: displacement,
-      engineType: engineType,
-    );
-    final valveRecs = getValveRecommendationsDetailed(
-      bore: bore,
-      displacement: displacement,
-      engineType: engineType,
-    );
+    // Removed carburetor and valve recommendations as requested
+    final carbRecs = <Map<String, String>>[];
+    final valveRecs = <Map<String, String>>[];
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Results & Recommendations', style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+        title: Text(
+          'Calculation Result',
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w700,
+            fontSize: 20,
+            letterSpacing: 0.5,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: Colors.blue.shade800,
+        foregroundColor: Colors.white,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.blue.shade800.withOpacity(0.1),
+                Colors.blue.shade600.withOpacity(0.05),
+              ],
+            ),
+          ),
+        ),
       ),
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Custom background shapes
-          Positioned(
-            top: -80,
-            left: -100,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  colors: [Colors.blue.shade100, Colors.blue.shade300.withOpacity(0.5)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: -60,
-            right: -80,
-            child: Container(
-              width: 220,
-              height: 220,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  colors: [Colors.lightBlueAccent.shade100, Colors.lightBlueAccent.shade200.withOpacity(0.4)],
-                  begin: Alignment.bottomRight,
-                  end: Alignment.topLeft,
-                ),
-              ),
-            ),
-          ),
-          // Existing gradient and background
+          // Enhanced gradient background
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFFe3f2fd),
-                  Color(0xFFbbdefb),
-                  Color(0xFF90caf9),
+                  const Color(0xFF1e3c72),
+                  const Color(0xFF2a5298),
+                  const Color(0xFF4a90e2),
+                  const Color(0xFF7bb3f0),
                 ],
+                stops: const [0.0, 0.3, 0.7, 1.0],
               ),
             ),
           ),
+          
+          // Animated background shapes
+          Positioned(
+            top: -80,
+            right: -80,
+            child: Container(
+              width: 250,
+              height: 250,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.white.withOpacity(0.1),
+                    Colors.white.withOpacity(0.05),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          Positioned(
+            bottom: -60,
+            left: -60,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.blue.shade300.withOpacity(0.15),
+                    Colors.blue.shade200.withOpacity(0.1),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          // Subtle background pattern
           AnimatedOpacity(
-            opacity: 0.15,
-            duration: const Duration(seconds: 1),
+            opacity: 0.08,
+            duration: const Duration(seconds: 2),
             child: Image.asset(
               'assets/images/bg.jpg',
               width: double.infinity,
@@ -97,262 +131,212 @@ class ResultPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
+          
           SafeArea(
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  // Enhanced header section
                   Padding(
-                    padding: const EdgeInsets.only(top: 48.0, bottom: 16.0),
+                    padding: const EdgeInsets.only(top: 25.0, bottom: 15.0),
                     child: Hero(
                       tag: 'logo',
                       child: Material(
                         color: Colors.transparent,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.blue.shade100.withOpacity(0.4),
-                                blurRadius: 24,
-                                offset: const Offset(0, 8),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(24),
-                            child: Image.asset(
-                              'assets/images/logo.png',
-                              width: 70,
-                              height: 70,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
                   ),
+                  
+                  // Enhanced content section
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Engine Displacement Card
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
+                        // Engine type indicator
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(28),
+                            borderRadius: BorderRadius.circular(25),
                             gradient: LinearGradient(
                               colors: [
-                                Colors.white.withOpacity(0.55),
-                                Colors.blue.shade50.withOpacity(0.35),
+                                Colors.white.withOpacity(0.2),
+                                Colors.white.withOpacity(0.1),
                               ],
+                            ),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                engineType == 'Four Stroke' ? Icons.directions_car : Icons.motorcycle,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                engineType,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        
+                        const SizedBox(height: 25),
+                        
+                        // Enhanced Engine Displacement Card
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(22),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            gradient: LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
+                              colors: [
+                                Colors.white.withOpacity(0.95),
+                                Colors.white.withOpacity(0.85),
+                              ],
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.blue.shade100.withOpacity(0.25),
-                                blurRadius: 18,
-                                offset: const Offset(0, 8),
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 30,
+                                offset: const Offset(0, 15),
+                                spreadRadius: 5,
                               ),
                             ],
                             border: Border.all(
-                              width: 1.5,
-                              color: Colors.blue.shade100.withOpacity(0.7),
+                              color: Colors.white.withOpacity(0.3),
+                              width: 1,
                             ),
-                            backgroundBlendMode: BlendMode.overlay,
                           ),
-                          foregroundDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(28),
-                            color: Colors.white.withOpacity(0.05),
-                            backgroundBlendMode: BlendMode.overlay,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(14),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue.shade600.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Icon(
+                                  Icons.speed,
+                                  color: Colors.blue.shade700,
+                                  size: 32,
+                                ),
+                              ),
+                              const SizedBox(height: 14),
+                              Text(
+                                'Engine Displacement',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.blue.shade800,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 1.2,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                '${displacement.toStringAsFixed(1)} cc',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.blue.shade900,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 32,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              
+                              // Engine specifications
+                              Container(
+                                padding: const EdgeInsets.all(14),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue.shade50.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: Colors.blue.shade200.withOpacity(0.3),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    _buildSpecRow('Bore', '${bore.toStringAsFixed(1)} mm', Icons.circle_outlined),
+                                    const SizedBox(height: 6),
+                                    _buildSpecRow('Stroke', '${stroke.toStringAsFixed(1)} mm', Icons.straighten),
+                                    const SizedBox(height: 6),
+                                    _buildSpecRow('Cylinders', '$cylinders', Icons.view_column),
+                                    if (strokePin > 0) ...[
+                                      const SizedBox(height: 6),
+                                      _buildSpecRow('Stroke Pin', '${strokePin.toStringAsFixed(1)} mm', Icons.pin),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          margin: const EdgeInsets.only(bottom: 32),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              children: [
-                                Icon(Icons.speed, color: Colors.blue.shade800, size: 28),
-                                const SizedBox(height: 14),
-                                Text(
-                                  'Engine Displacement',
+                        ),
+                        
+                        const SizedBox(height: 25),
+                        
+                        // Enhanced success message
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.green.shade400.withOpacity(0.2),
+                                Colors.green.shade300.withOpacity(0.1),
+                              ],
+                            ),
+                            border: Border.all(
+                              color: Colors.green.shade300.withOpacity(0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.green.shade500.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Icon(
+                                  Icons.check_circle,
+                                  color: Colors.green.shade600,
+                                  size: 24,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Text(
+                                  'Engine displacement calculated successfully.',
                                   style: GoogleFonts.poppins(
-                                    color: Colors.blue.shade800,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.2,
+                                    color: Colors.green.shade800,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
                                 ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  '${displacement.toStringAsFixed(1)} cc',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.blue.shade900,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                        // Carburetor Recommendations Section
-                        Row(
-                          children: [
-                            Icon(Icons.local_gas_station, color: Colors.blue.shade800),
-                            const SizedBox(width: 10),
-                            Text('Carburetor Recommendations',
-                                style: GoogleFonts.poppins(
-                                  color: Colors.blue.shade800,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                )),
-                            const SizedBox(width: 8),
-                            Tooltip(
-                              message: 'Suggested carburetor types and settings for your engine size.',
-                              child: Icon(Icons.info_outline, color: Colors.blueGrey.shade400, size: 20),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 14),
-                        ...carbRecs.map((rec) => AnimatedContainer(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeInOut,
-                              width: double.infinity, // Expand to full width
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.white.withOpacity(0.55),
-                                    Colors.blue.shade50.withOpacity(0.35),
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.blue.shade100.withOpacity(0.18),
-                                    blurRadius: 14,
-                                    offset: const Offset(0, 6),
-                                  ),
-                                ],
-                                border: Border.all(
-                                  width: 1.2,
-                                  color: Colors.blue.shade100.withOpacity(0.6),
-                                ),
-                                backgroundBlendMode: BlendMode.overlay,
-                              ),
-                              foregroundDecoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
-                                color: Colors.white.withOpacity(0.04),
-                                backgroundBlendMode: BlendMode.overlay,
-                              ),
-                              margin: const EdgeInsets.symmetric(vertical: 10),
-                              child: Padding(
-                                padding: const EdgeInsets.all(22.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('${rec['purpose']}',
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.blue.shade800,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    const SizedBox(height: 6),
-                                    Text('Type: ${rec['type']}', style: GoogleFonts.poppins(fontSize: 14)),
-                                    Text('Size: ${rec['size']} mm', style: GoogleFonts.poppins(fontSize: 14)),
-                                    Text('Jetting: ${rec['jetting']}', style: GoogleFonts.poppins(fontSize: 14)),
-                                    Text('Brand: ${rec['brand']}', style: GoogleFonts.poppins(fontSize: 14)),
-                                    if (rec['ph_brands'] != null)
-                                      Text('PH Brands: ${rec['ph_brands']}', style: GoogleFonts.poppins(fontSize: 14)),
-                                  ],
-                                ),
-                              ),
-                            )),
-                        const SizedBox(height: 32),
-                        // Valve Recommendations Section
-                        Row(
-                          children: [
-                            Icon(Icons.build, color: Colors.blue.shade800),
-                            const SizedBox(width: 10),
-                            Text('Valve Recommendations',
-                                style: GoogleFonts.poppins(
-                                  color: Colors.blue.shade800,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                )),
-                            const SizedBox(width: 8),
-                            Tooltip(
-                              message: 'Suggested valve sizes and types for your engine.',
-                              child: Icon(Icons.info_outline, color: Colors.blueGrey.shade400, size: 20),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 14),
-                        ...valveRecs.map((rec) => AnimatedContainer(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeInOut,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.white.withOpacity(0.55),
-                                    Colors.blue.shade50.withOpacity(0.35),
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.blue.shade100.withOpacity(0.18),
-                                    blurRadius: 14,
-                                    offset: const Offset(0, 6),
-                                  ),
-                                ],
-                                border: Border.all(
-                                  width: 1.2,
-                                  color: Colors.blue.shade100.withOpacity(0.6),
-                                ),
-                                backgroundBlendMode: BlendMode.overlay,
-                              ),
-                              foregroundDecoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
-                                color: Colors.white.withOpacity(0.04),
-                                backgroundBlendMode: BlendMode.overlay,
-                              ),
-                              margin: const EdgeInsets.symmetric(vertical: 10),
-                              child: Padding(
-                                padding: const EdgeInsets.all(22.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('${rec['purpose']}',
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.blue.shade800,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                    const SizedBox(height: 6),
-                                    Text('Intake: ${rec['intake_size']} mm (${rec['intake_brand']})', style: GoogleFonts.poppins(fontSize: 14)),
-                                    Text('Exhaust: ${rec['exhaust_size']} mm (${rec['exhaust_brand']})', style: GoogleFonts.poppins(fontSize: 14)),
-                                    if (rec['ph_brands'] != null)
-                                      Text('PH Brands: ${rec['ph_brands']}', style: GoogleFonts.poppins(fontSize: 14)),
-                                  ],
-                                ),
-                              ),
-                            )),
-                        const SizedBox(height: 40),
-                        Text(
-                          'All recommendations are based on typical engine builds. Always consult a professional for your specific application.',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            color: Colors.blueGrey.shade700,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        const SizedBox(height: 32),
+                        
+                        const SizedBox(height: 25),
                       ],
                     ),
                   ),
@@ -362,6 +346,36 @@ class ResultPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+  
+  Widget _buildSpecRow(String label, String value, IconData icon) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: Colors.blue.shade600,
+          size: 18,
+        ),
+        const SizedBox(width: 12),
+        Text(
+          '$label:',
+          style: GoogleFonts.poppins(
+            color: Colors.blue.shade700,
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+        ),
+        const Spacer(),
+        Text(
+          value,
+          style: GoogleFonts.poppins(
+            color: Colors.blue.shade800,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
+        ),
+      ],
     );
   }
 } 

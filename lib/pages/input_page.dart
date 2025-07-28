@@ -46,66 +46,95 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Engine CC Calculator', style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+        title: Text(
+          'Engine Displacement',
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w700,
+            fontSize: 20,
+            letterSpacing: 0.5,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: Colors.blue.shade800,
+        foregroundColor: Colors.white,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.blue.shade800.withOpacity(0.1),
+                Colors.blue.shade600.withOpacity(0.05),
+              ],
+            ),
+          ),
+        ),
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Custom background shapes
-          Positioned(
-            top: -80,
-            left: -100,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  colors: [Colors.blue.shade100, Colors.blue.shade300.withOpacity(0.5)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: -60,
-            right: -80,
-            child: Container(
-              width: 220,
-              height: 220,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  colors: [Colors.lightBlueAccent.shade100, Colors.lightBlueAccent.shade200.withOpacity(0.4)],
-                  begin: Alignment.bottomRight,
-                  end: Alignment.topLeft,
-                ),
-              ),
-            ),
-          ),
-          // Existing gradient and background
+          // Enhanced gradient background
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFFe3f2fd),
-                  Color(0xFFbbdefb),
-                  Color(0xFF90caf9),
+                  const Color(0xFF1e3c72),
+                  const Color(0xFF2a5298),
+                  const Color(0xFF4a90e2),
+                  const Color(0xFF7bb3f0),
                 ],
+                stops: const [0.0, 0.3, 0.7, 1.0],
               ),
             ),
           ),
+          
+          // Animated background shapes
+          Positioned(
+            top: -60,
+            right: -60,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.white.withOpacity(0.1),
+                    Colors.white.withOpacity(0.05),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          Positioned(
+            bottom: -40,
+            left: -40,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.blue.shade300.withOpacity(0.15),
+                    Colors.blue.shade200.withOpacity(0.1),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          // Subtle background pattern
           AnimatedOpacity(
-            opacity: 0.15,
-            duration: const Duration(seconds: 1),
+            opacity: 0.08,
+            duration: const Duration(seconds: 2),
             child: Image.asset(
               'assets/images/bg.jpg',
               width: double.infinity,
@@ -113,352 +142,196 @@ class _InputPageState extends State<InputPage> {
               fit: BoxFit.cover,
             ),
           ),
+          
           SafeArea(
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  // Enhanced header section
                   Padding(
-                    padding: const EdgeInsets.only(top: 48.0, bottom: 8.0),
+                    padding: const EdgeInsets.only(top: 25.0, bottom: 15.0),
                     child: Hero(
                       tag: 'logo',
                       child: Material(
                         color: Colors.transparent,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.blue.shade100.withOpacity(0.4),
-                                blurRadius: 24,
-                                offset: const Offset(0, 8),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(24),
                             child: Image.asset(
                               'assets/images/logo.png',
-                              width: 70,
-                              height: 70,
+                          width: 120,
+                          height: 120,
                               fit: BoxFit.contain,
-                            ),
-                          ),
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-                    child: Divider(thickness: 1.5, color: Colors.blueGrey.shade100),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-                    child: Hero(
-                      tag: 'title',
-                      child: Material(
-                        color: Colors.transparent,
-                        child: Text(
-                          'Engine Displacement Input',
-                          style: GoogleFonts.poppins(
-                            color: Colors.blue.shade800,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.1,
-                            fontSize: 24,
-                          ),
-                        ),
+                  
+                  // Enhanced title section
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 24.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white.withOpacity(0.15),
+                          Colors.white.withOpacity(0.05),
+                        ],
+                      ),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.2),
+                        width: 1,
                       ),
                     ),
+                    child: Text(
+                      'Enter Engine Specifications',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.1,
+                        fontSize: 22,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
+                  
+                  const SizedBox(height: 20),
+                  
+                  // Enhanced form section
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-                    child: Card(
-                      elevation: 16,
-                      shadowColor: Colors.blue.shade100,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-                      color: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(0.95),
+                            Colors.white.withOpacity(0.85),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 30,
+                            offset: const Offset(0, 15),
+                            spreadRadius: 5,
+                          ),
+                        ],
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.3),
+                          width: 1,
+                        ),
+                      ),
                       child: Padding(
-                        padding: const EdgeInsets.all(18.0),
+                        padding: const EdgeInsets.all(20.0),
                         child: Form(
                           key: _formKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // Form header
                               Row(
                                 children: [
-                                  Icon(Icons.engineering, color: Colors.blue.shade800, size: 22),
+                                  Container(
+                                    padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                      color: Colors.blue.shade600.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Icon(
+                                      Icons.engineering,
+                                      color: Colors.blue.shade700,
+                                      size: 24,
+                                    ),
+                                  ),
                                   const SizedBox(width: 12),
-                                  Text('Engine Displacement Input',
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.blue.shade800,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 1.1,
-                                        fontSize: 15,
-                                      )),
+                                  Text(
+                                    'Engine Parameters',
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.blue.shade800,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18,
+                                    ),
+                                  ),
                                 ],
                               ),
-                              const SizedBox(height: 22),
-                              Divider(thickness: 1.5, color: Colors.blueGrey.shade100),
-                              const SizedBox(height: 22),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Diameter of the cylinder in mm',
-                                  child: TextFormField(
-                                    controller: _boreController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Bore (mm)',
-                                      helperText: 'Diameter of the cylinder',
-                                      prefixIcon: Icon(Icons.circle, color: Colors.blueAccent),
-                                      labelStyle: GoogleFonts.poppins(color: Colors.blue.shade700),
-                                      helperStyle: GoogleFonts.poppins(color: Colors.blueGrey.shade600),
-                                      filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                    ),
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) => value == null || value.isEmpty ? 'Enter bore' : null,
-                                  ),
-                                ),
+                              
+                              const SizedBox(height: 18),
+                              
+                              // Enhanced input fields
+                              _buildInputField(
+                                controller: _boreController,
+                                label: 'Bore Diameter',
+                                hint: 'Enter bore in mm',
+                                icon: Icons.circle_outlined,
+                                color: const Color(0xFF2196F3),
                               ),
+                              
                               const SizedBox(height: 16),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Distance piston travels in mm',
-                                  child: TextFormField(
+                              
+                              _buildInputField(
                                     controller: _strokeController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Stroke (mm)',
-                                      helperText: 'Distance piston travels',
-                                      prefixIcon: Icon(Icons.height, color: Colors.deepPurple),
-                                      labelStyle: GoogleFonts.poppins(color: Colors.blue.shade700),
-                                      helperStyle: GoogleFonts.poppins(color: Colors.blueGrey.shade600),
-                                      filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                    ),
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) => value == null || value.isEmpty ? 'Enter stroke' : null,
-                                  ),
-                                ),
+                                label: 'Stroke Length',
+                                hint: 'Enter stroke in mm',
+                                icon: Icons.straighten,
+                                color: const Color(0xFF4CAF50),
                               ),
+                              
                               const SizedBox(height: 16),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Number of cylinders in the engine',
-                                  child: TextFormField(
+                              
+                              _buildInputField(
                                     controller: _cylindersController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Cylinders',
-                                      helperText: 'Number of cylinders',
-                                      prefixIcon: Icon(Icons.confirmation_number, color: Colors.green),
-                                      labelStyle: GoogleFonts.poppins(color: Colors.blue.shade700),
-                                      helperStyle: GoogleFonts.poppins(color: Colors.blueGrey.shade600),
-                                      filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                    ),
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) => value == null || value.isEmpty ? 'Enter cylinders' : null,
-                                  ),
-                                ),
+                                label: 'Number of Cylinders',
+                                hint: 'Enter cylinder count',
+                                icon: Icons.view_column,
+                                color: const Color(0xFFFF9800),
                               ),
+                              
                               const SizedBox(height: 16),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Diameter of the crank pin in mm',
-                                  child: TextFormField(
-                                    controller: _strokePinController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Stroke Pin (mm)',
-                                      helperText: 'Diameter of the crank pin',
-                                      prefixIcon: Icon(Icons.push_pin, color: Colors.orange),
-                                      labelStyle: GoogleFonts.poppins(color: Colors.blue.shade700),
-                                      helperStyle: GoogleFonts.poppins(color: Colors.blueGrey.shade600),
-                                      filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                    ),
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) => value == null || value.isEmpty ? 'Enter stroke pin' : null,
-                                  ),
-                                ),
+                              
+                              _buildInputField(
+                                controller: _strokePinController,
+                                label: 'Stroke Pin Length',
+                                hint: 'Enter pin length in mm',
+                                icon: Icons.pin,
+                                color: const Color(0xFF9C27B0),
                               ),
-                              const SizedBox(height: 32),
-                              Center(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      // This is needed to trigger a rebuild of the button's state
-                                      // to apply the scale effect.
-                                    });
-                                  },
-                                  child: AnimatedScale(
-                                    scale: 1.0, // Default scale
-                                    duration: const Duration(milliseconds: 200),
-                                    curve: Curves.easeInOut,
-                                    child: ElevatedButton.icon(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.blue.shade700,
-                                        foregroundColor: Colors.white,
-                                        padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                                        elevation: 10,
-                                      ),
-                                      onPressed: _calculateAndNavigate,
-                                      icon: const Icon(Icons.calculate),
-                                      label: const Text('Calculate'),
+                              
+                              const SizedBox(height: 24),
+                              
+                              // Enhanced calculate button
+                              SizedBox(
+                                width: double.infinity,
+                                height: 56,
+                                child: ElevatedButton(
+                                  onPressed: _calculateAndNavigate,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue.shade600,
+                                    foregroundColor: Colors.white,
+                                    elevation: 8,
+                                    shadowColor: Colors.blue.shade300,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
                                     ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.calculate,
+                                        size: 24,
+                                        color: Colors.white,
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Text(
+                                        'Calculate Displacement',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -468,12 +341,99 @@ class _InputPageState extends State<InputPage> {
                       ),
                     ),
                   ),
+                  
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+  
+  Widget _buildInputField({
+    required TextEditingController controller,
+    required String label,
+    required String hint,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(
+              icon,
+              color: color,
+              size: 20,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: GoogleFonts.poppins(
+                color: Colors.blue.shade800,
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          controller: controller,
+          keyboardType: TextInputType.number,
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Colors.blue.shade800,
+          ),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: GoogleFonts.poppins(
+              color: Colors.blue.shade400,
+              fontSize: 14,
+            ),
+            filled: true,
+            fillColor: Colors.white.withOpacity(0.8),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: color.withOpacity(0.3),
+                width: 1.5,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: color.withOpacity(0.3),
+                width: 1.5,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: color,
+                width: 2,
+              ),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16,
+            ),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a value';
+            }
+            if (double.tryParse(value) == null) {
+              return 'Please enter a valid number';
+            }
+            return null;
+          },
+        ),
+      ],
     );
   }
 } 
