@@ -1,4 +1,4 @@
-# engine_calc
+# Engine Calculator
 
 A new Flutter project.
 

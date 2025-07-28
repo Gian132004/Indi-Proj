@@ -4,6 +4,7 @@ import 'pages/menu_page.dart';
 import 'pages/input_page.dart';
 import 'pages/result_page.dart';
 import 'pages/compression_calculator_page.dart';
+import 'pages/compression_result_page.dart';
 import 'pages/top_speed_calculator_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 // (Compression and Top Speed calculator imports will be added later)
@@ -18,7 +19,7 @@ class EngineCalcApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Engine Displacement Calculator',
+      title: 'Engine Calculator',
       debugShowCheckedModeBanner: false, // Hide debug banner for polish
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -134,6 +135,9 @@ class EngineCalcApp extends StatelessWidget {
             break;
           case '/compression':
             builder = (context) => const CompressionCalculatorPage();
+            break;
+          case '/compression_result':
+            builder = (context) => const CompressionResultPage();
             break;
           case '/top_speed':
             builder = (context) => const TopSpeedCalculatorPage();

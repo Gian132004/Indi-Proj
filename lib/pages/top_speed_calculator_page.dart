@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class TopSpeedCalculatorPage extends StatefulWidget {
   const TopSpeedCalculatorPage({super.key});
@@ -42,17 +43,20 @@ class _TopSpeedCalculatorPageState extends State<TopSpeedCalculatorPage> {
           finalDrive = double.parse(_finalDriveController.text);
           gear = double.parse(_gearController.text);
         } else if (_transmissionType == 'Scooter') {
+          // For scooters, CVT gearing is the overall reduction ratio
           gear = double.parse(_cvtGearingController.text);
+          finalDrive = 1.0; // CVT doesn't use separate final drive
         }
-        final error = double.tryParse(_errorController.text) ?? 0.0;
-        final tireCircumference = tire * 0.0254 * 3.1416;
+        final error = _errorController.text.isEmpty ? 0.0 : double.tryParse(_errorController.text) ?? 0.0;
+        final tireCircumference = tire * 0.0254 * pi;
+        // Speed calculation: (RPM × Tire Circumference) / (Overall Reduction Ratio)
         final speedMPerMin = (rpm * tireCircumference) / (finalDrive * gear);
         double speedKmh = speedMPerMin * 60 / 1000;
         speedKmh = speedKmh * (1 + error / 100);
         _topSpeed = speedKmh;
       } catch (e) {
         _topSpeed = null;
-        _error = 'Please enter valid numbers for all fields.';
+        _error = 'Please enter valid numbers for all required fields.';
       }
     });
   }

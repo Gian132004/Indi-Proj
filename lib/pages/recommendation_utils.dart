@@ -5,7 +5,7 @@ double calculateDisplacement(double bore, double stroke, int cylinders) {
   // Convert mm to cm for bore and stroke
   final boreCm = bore / 10;
   final strokeCm = stroke / 10;
-  return 3.1416 / 4 * boreCm * boreCm * strokeCm * cylinders;
+  return pi / 4 * boreCm * boreCm * strokeCm * cylinders;
 }
 
 

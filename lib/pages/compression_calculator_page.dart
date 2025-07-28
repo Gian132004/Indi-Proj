@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'dart:math';
 
 class CompressionCalculatorPage extends StatefulWidget {
   const CompressionCalculatorPage({super.key});
@@ -18,6 +20,10 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
   double? _compressionRatio;
   String? _error;
 
+  @override
+  void dispose() {
+    _boreController.dispose();
+    _strokeController.dispose();
     _chamberController.dispose();
     _pistonController.dispose();
     _gasketController.dispose();
@@ -35,9 +41,28 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
         final piston = double.parse(_pistonController.text);
         final gasket = double.parse(_gasketController.text);
         final cylinders = int.parse(_cylindersController.text);
-        final swept = 3.1416 / 4 * bore * bore * stroke;
+        // Convert mm to cm for bore and stroke, then calculate swept volume in cc
+        final boreCm = bore / 10;
+        final strokeCm = stroke / 10;
+        final swept = pi / 4 * boreCm * boreCm * strokeCm;
         final clearance = chamber + piston + gasket;
         _compressionRatio = (swept + clearance) / clearance;
+        
+        // Navigate to result page
+        Navigator.pushNamed(
+          context,
+          '/compression_result',
+          arguments: {
+            'bore': bore,
+            'stroke': stroke,
+            'chamber': chamber,
+            'piston': piston,
+            'gasket': gasket,
+            'cylinders': cylinders,
+            'compressionRatio': _compressionRatio,
+            'engineType': 'Four Stroke', // Default engine type
+          },
+        );
       } catch (e) {
         _compressionRatio = null;
         _error = 'Please enter valid numbers for all fields.';
@@ -550,21 +575,49 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
                                 ),
                               ),
                               const SizedBox(height: 24),
-                              if (_compressionRatio != null)
-                                Center(
-                                  child: Text(
-                                    'Compression Ratio: ${_compressionRatio!.toStringAsFixed(2)} : 1',
-                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ),
+                              
                               if (_error != null)
-                                Center(
-                                  child: Text(
-                                    _error!,
-                                    style: const TextStyle(color: Colors.red),
+                                Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.red.shade400.withOpacity(0.2),
+                                        Colors.red.shade300.withOpacity(0.1),
+                                      ],
+                                    ),
+                                    border: Border.all(
+                                      color: Colors.red.shade300.withOpacity(0.3),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          color: Colors.red.shade500.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Icon(
+                                          Icons.error,
+                                          color: Colors.red.shade600,
+                                          size: 24,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Expanded(
+                                        child: Text(
+                                          _error!,
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.red.shade800,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                             ],
@@ -581,4 +634,5 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
       ),
     );
   }
+  
 } 

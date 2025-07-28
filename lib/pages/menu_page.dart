@@ -185,7 +185,7 @@ class MenuPage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
-                                engineType == 'Four Stroke' ? Icons.directions_car : Icons.motorcycle,
+                                engineType == 'Four Stroke' ? Icons.precision_manufacturing : Icons.motorcycle,
                                 color: Colors.white,
                                 size: 20,
                               ),

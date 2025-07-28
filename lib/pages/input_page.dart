@@ -13,14 +13,14 @@ class _InputPageState extends State<InputPage> {
   final TextEditingController _boreController = TextEditingController();
   final TextEditingController _strokeController = TextEditingController();
   final TextEditingController _cylindersController = TextEditingController();
-  final TextEditingController _strokePinController = TextEditingController();
+
 
   @override
   void dispose() {
     _boreController.dispose();
     _strokeController.dispose();
     _cylindersController.dispose();
-    _strokePinController.dispose();
+
     super.dispose();
   }
 
@@ -35,7 +35,7 @@ class _InputPageState extends State<InputPage> {
           'bore': double.parse(_boreController.text),
           'stroke': double.parse(_strokeController.text),
           'cylinders': int.parse(_cylindersController.text),
-          'strokePin': double.parse(_strokePinController.text),
+  
           'engineType': engineType,
         },
       );
@@ -289,13 +289,7 @@ class _InputPageState extends State<InputPage> {
                               
                               const SizedBox(height: 16),
                               
-                              _buildInputField(
-                                controller: _strokePinController,
-                                label: 'Stroke Pin Length',
-                                hint: 'Enter pin length in mm',
-                                icon: Icons.pin,
-                                color: const Color(0xFF9C27B0),
-                              ),
+
                               
                               const SizedBox(height: 24),
                               

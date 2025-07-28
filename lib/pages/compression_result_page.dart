@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:math';
-import 'recommendation_utils.dart';
 
-class ResultPage extends StatelessWidget {
-  const ResultPage({super.key});
-
-  double calculateDisplacement(double bore, double stroke, int cylinders) {
-    // Displacement formula: π/4 × bore^2 × stroke × cylinders
-    // Convert mm to cm for bore and stroke
-    final boreCm = bore / 10;
-    final strokeCm = stroke / 10;
-    return pi / 4 * boreCm * boreCm * strokeCm * cylinders;
-  }
+class CompressionResultPage extends StatelessWidget {
+  const CompressionResultPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +19,12 @@ class ResultPage extends StatelessWidget {
 
     final double bore = args['bore'] ?? 0.0;
     final double stroke = args['stroke'] ?? 0.0;
+    final double chamber = args['chamber'] ?? 0.0;
+    final double piston = args['piston'] ?? 0.0;
+    final double gasket = args['gasket'] ?? 0.0;
     final int cylinders = args['cylinders'] ?? 0;
-
+    final double compressionRatio = args['compressionRatio'] ?? 0.0;
     final String engineType = args['engineType'] ?? 'Unknown';
-
-    final double displacement = calculateDisplacement(bore, stroke, cylinders);
-    // Removed carburetor and valve recommendations as requested
-    final carbRecs = <Map<String, String>>[];
-    final valveRecs = <Map<String, String>>[];
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -60,8 +48,8 @@ class ResultPage extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.blue.shade800.withOpacity(0.1),
-                Colors.blue.shade600.withOpacity(0.05),
+                Colors.orange.shade800.withOpacity(0.1),
+                Colors.orange.shade600.withOpacity(0.05),
               ],
             ),
           ),
@@ -76,10 +64,10 @@ class ResultPage extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  const Color(0xFF1e3c72),
-                  const Color(0xFF2a5298),
-                  const Color(0xFF4a90e2),
-                  const Color(0xFF7bb3f0),
+                  const Color(0xFFE65100),
+                  const Color(0xFFF57C00),
+                  const Color(0xFFFF9800),
+                  const Color(0xFFFFB74D),
                 ],
                 stops: const [0.0, 0.3, 0.7, 1.0],
               ),
@@ -116,8 +104,8 @@ class ResultPage extends StatelessWidget {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    Colors.blue.shade300.withOpacity(0.15),
-                    Colors.blue.shade200.withOpacity(0.1),
+                    Colors.orange.shade300.withOpacity(0.15),
+                    Colors.orange.shade200.withOpacity(0.1),
                     Colors.transparent,
                   ],
                 ),
@@ -203,7 +191,7 @@ class ResultPage extends StatelessWidget {
                         
                         const SizedBox(height: 25),
                         
-                        // Enhanced Engine Displacement Card
+                        // Enhanced Compression Ratio Card
                         Container(
                           width: double.infinity,
                           padding: const EdgeInsets.all(22),
@@ -235,20 +223,20 @@ class ResultPage extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.all(14),
                                 decoration: BoxDecoration(
-                                  color: Colors.blue.shade600.withOpacity(0.1),
+                                  color: Colors.orange.shade600.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Icon(
-                                  Icons.speed,
-                                  color: Colors.blue.shade700,
+                                  Icons.compress,
+                                  color: Colors.orange.shade700,
                                   size: 32,
                                 ),
                               ),
                               const SizedBox(height: 14),
                               Text(
-                                'Engine Displacement',
+                                'Compression Ratio',
                                 style: GoogleFonts.poppins(
-                                  color: Colors.blue.shade800,
+                                  color: Colors.orange.shade800,
                                   fontWeight: FontWeight.w700,
                                   letterSpacing: 1.2,
                                   fontSize: 18,
@@ -256,9 +244,9 @@ class ResultPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                '${displacement.toStringAsFixed(2)} cc',
+                                '${compressionRatio.toStringAsFixed(2)} : 1',
                                 style: GoogleFonts.poppins(
-                                  color: Colors.blue.shade900,
+                                  color: Colors.orange.shade900,
                                   fontWeight: FontWeight.w800,
                                   fontSize: 32,
                                 ),
@@ -269,10 +257,10 @@ class ResultPage extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.all(14),
                                 decoration: BoxDecoration(
-                                  color: Colors.blue.shade50.withOpacity(0.5),
+                                  color: Colors.orange.shade50.withOpacity(0.5),
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(
-                                    color: Colors.blue.shade200.withOpacity(0.3),
+                                    color: Colors.orange.shade200.withOpacity(0.3),
                                     width: 1,
                                   ),
                                 ),
@@ -282,8 +270,13 @@ class ResultPage extends StatelessWidget {
                                     const SizedBox(height: 6),
                                     _buildSpecRow('Stroke', '${stroke.toStringAsFixed(1)} mm', Icons.straighten),
                                     const SizedBox(height: 6),
+                                    _buildSpecRow('Chamber Volume', '${chamber.toStringAsFixed(1)} cc', Icons.volume_up),
+                                    const SizedBox(height: 6),
+                                    _buildSpecRow('Piston Dome/Dish', '${piston.toStringAsFixed(1)} cc', Icons.arrow_upward),
+                                    const SizedBox(height: 6),
+                                    _buildSpecRow('Gasket Volume', '${gasket.toStringAsFixed(1)} cc', Icons.layers),
+                                    const SizedBox(height: 6),
                                     _buildSpecRow('Cylinders', '$cylinders', Icons.view_column),
-
                                   ],
                                 ),
                               ),
@@ -326,7 +319,7 @@ class ResultPage extends StatelessWidget {
                               const SizedBox(width: 16),
                               Expanded(
                                 child: Text(
-                                  'Engine displacement calculated successfully.',
+                                  'Compression ratio calculated successfully.',
                                   style: GoogleFonts.poppins(
                                     color: Colors.green.shade800,
                                     fontWeight: FontWeight.w600,
@@ -356,14 +349,14 @@ class ResultPage extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: Colors.blue.shade600,
+          color: Colors.orange.shade600,
           size: 18,
         ),
         const SizedBox(width: 12),
         Text(
           '$label:',
           style: GoogleFonts.poppins(
-            color: Colors.blue.shade700,
+            color: Colors.orange.shade700,
             fontWeight: FontWeight.w600,
             fontSize: 14,
           ),
@@ -372,7 +365,7 @@ class ResultPage extends StatelessWidget {
         Text(
           value,
           style: GoogleFonts.poppins(
-            color: Colors.blue.shade800,
+            color: Colors.orange.shade800,
             fontWeight: FontWeight.w700,
             fontSize: 14,
           ),

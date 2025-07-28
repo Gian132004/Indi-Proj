@@ -185,7 +185,7 @@ class LandingPage extends StatelessWidget {
                           context: context,
                           title: 'Four Stroke',
                           subtitle: 'Most motorcycles & cars',
-                          icon: Icons.directions_car,
+                          icon: Icons.precision_manufacturing,
                           color: const Color(0xFF4CAF50),
                           onPressed: () => _selectEngineType(context, 'Four Stroke'),
                         ),
