@@ -149,7 +149,6 @@ class MenuPage extends StatelessWidget {
                             child: Image.asset(
                               'assets/images/logo.png',
                           width: 220,
-                          height: 220,
                               fit: BoxFit.contain,
                         ),
                       ),

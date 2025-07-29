@@ -134,7 +134,6 @@ class LandingPage extends StatelessWidget {
                         child: Image.asset(
                           'assets/images/logo.png',
                           width: 280,
-                          height: 280,
                           fit: BoxFit.contain,
                         ),
                       ),

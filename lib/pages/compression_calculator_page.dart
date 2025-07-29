@@ -41,12 +41,39 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
         final piston = double.parse(_pistonController.text);
         final gasket = double.parse(_gasketController.text);
         final cylinders = int.parse(_cylindersController.text);
+        
+        // Validate inputs
+        if (bore <= 0 || stroke <= 0 || chamber <= 0 || gasket < 0) {
+          _error = 'Please enter valid positive values for bore, stroke, and chamber. Gasket can be 0.';
+          _compressionRatio = null;
+          return;
+        }
+        
         // Convert mm to cm for bore and stroke, then calculate swept volume in cc
         final boreCm = bore / 10;
         final strokeCm = stroke / 10;
-        final swept = pi / 4 * boreCm * boreCm * strokeCm;
-        final clearance = chamber + piston + gasket;
-        _compressionRatio = (swept + clearance) / clearance;
+        final sweptVolume = pi / 4 * boreCm * boreCm * strokeCm;
+        
+        // Calculate clearance volume with proper handling of piston relief
+        // Piston relief can be positive (dome) or negative (dish)
+        final clearanceVolume = chamber + gasket + piston;
+        
+        // Validate clearance volume
+        if (clearanceVolume <= 0) {
+          _error = 'Clearance volume must be positive. Check your input values.';
+          _compressionRatio = null;
+          return;
+        }
+        
+        // Compression ratio = (swept volume + clearance volume) / clearance volume
+        _compressionRatio = (sweptVolume + clearanceVolume) / clearanceVolume;
+        
+        // Validate the result
+        if (_compressionRatio! < 1.0) {
+          _error = 'Invalid result. Check your input values.';
+          _compressionRatio = null;
+          return;
+        }
         
         // Navigate to result page
         Navigator.pushNamed(
@@ -188,7 +215,6 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
                         child: Image.asset(
                           'assets/images/logo.png',
                           width: 80,
-                          height: 80,
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -256,6 +282,39 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
                         ),
                       ),
                     ),
+                  
+                  // Compression calculation info
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.purple.shade50.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: Colors.purple.shade200, width: 1.2),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(Icons.calculate, color: Colors.purple.shade700, size: 22),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                '⚠️ ESTIMATE ONLY: This calculator provides a geometric compression ratio estimate. Actual compression may vary due to valve timing, port design, and other factors. For precise measurements, use a compression tester.',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.purple.shade900, 
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                   
                   const SizedBox(height: 15),
                   
@@ -346,7 +405,7 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
                               _buildInputField(
                                 controller: _chamberController,
                                 label: 'Chamber Volume',
-                                hint: 'Enter chamber volume in cc',
+                                hint: 'Enter chamber volume in cc (typically 8-15 cc)',
                                 icon: Icons.science,
                                 color: const Color(0xFF9C27B0),
                               ),
@@ -356,7 +415,7 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
                               _buildInputField(
                                 controller: _pistonController,
                                 label: 'Piston Dome/Dish',
-                                hint: 'Enter piston volume in cc (+/-)',
+                                hint: 'Enter piston volume in cc (0 for flat-top, -2 to +2)',
                                 icon: Icons.circle_outlined,
                                 color: const Color(0xFFE91E63),
                               ),
@@ -366,7 +425,7 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
                               _buildInputField(
                                 controller: _gasketController,
                                 label: 'Gasket Volume',
-                                hint: 'Enter gasket volume in cc',
+                                hint: 'Enter gasket volume in cc (typically 0.5-1.5 cc)',
                                 icon: Icons.layers,
                                 color: const Color(0xFFFF9800),
                               ),

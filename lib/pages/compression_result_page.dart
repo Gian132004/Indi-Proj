@@ -139,7 +139,6 @@ class CompressionResultPage extends StatelessWidget {
                         child: Image.asset(
                           'assets/images/logo.png',
                           width: 200,
-                          height: 200,
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -234,7 +233,7 @@ class CompressionResultPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 14),
                               Text(
-                                'Compression Ratio',
+                                'Estimated Compression Ratio',
                                 style: GoogleFonts.poppins(
                                   color: Colors.orange.shade800,
                                   fontWeight: FontWeight.w700,
@@ -251,6 +250,41 @@ class CompressionResultPage extends StatelessWidget {
                                   fontSize: 32,
                                 ),
                               ),
+                              const SizedBox(height: 16),
+                              
+                              // Accuracy note
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange.shade100.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Colors.orange.shade200.withOpacity(0.5),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.info_outline,
+                                      color: Colors.orange.shade700,
+                                      size: 16,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        'This is a geometric estimate. Actual compression may vary.',
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.orange.shade800,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              
                               const SizedBox(height: 16),
                               
                               // Engine specifications
@@ -319,7 +353,7 @@ class CompressionResultPage extends StatelessWidget {
                               const SizedBox(width: 16),
                               Expanded(
                                 child: Text(
-                                  'Compression ratio calculated successfully.',
+                                  'Geometric compression ratio estimated. For precise measurements, use a compression tester.',
                                   style: GoogleFonts.poppins(
                                     color: Colors.green.shade800,
                                     fontWeight: FontWeight.w600,
