@@ -1,6 +1,6 @@
-# Engine Calculator
+# MotoRun
 
-A new Flutter project.
+A Flutter application for calculating engine displacement, compression ratio, and top speed with precision.
 
 ## Getting Started
 

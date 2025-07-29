@@ -74,69 +74,98 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     final String engineType = args?['engineType'] ?? 'Unknown';
-    // Allow both Four Stroke and Two Stroke, but show info for Two Stroke
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Compression Calculator'),
+        title: Text(
+          'Compression Calculator',
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w700,
+            fontSize: 20,
+            letterSpacing: 0.5,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: Colors.blue.shade700,
+        foregroundColor: Colors.white,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.purple.shade800.withOpacity(0.1),
+                Colors.purple.shade600.withOpacity(0.05),
+              ],
+            ),
+          ),
+        ),
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Custom background shapes
-          Positioned(
-            top: -80,
-            left: -100,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  colors: [Colors.blue.shade100, Colors.blue.shade300.withOpacity(0.5)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: -60,
-            right: -80,
-            child: Container(
-              width: 220,
-              height: 220,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  colors: [Colors.orange.shade100, Colors.orange.shade300.withOpacity(0.4)],
-                  begin: Alignment.bottomRight,
-                  end: Alignment.topLeft,
-                ),
-              ),
-            ),
-          ),
-          // Existing gradient and background
+          // Enhanced gradient background
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFFe3f2fd),
-                  Color(0xFFbbdefb),
-                  Color(0xFF90caf9),
+                  const Color(0xFF4a148c),
+                  const Color(0xFF6a1b9a),
+                  const Color(0xFF8e24aa),
+                  const Color(0xFFba68c8),
                 ],
+                stops: const [0.0, 0.3, 0.7, 1.0],
               ),
             ),
           ),
+          
+          // Animated background shapes
+          Positioned(
+            top: -60,
+            right: -60,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.white.withOpacity(0.1),
+                    Colors.white.withOpacity(0.05),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          Positioned(
+            bottom: -40,
+            left: -40,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.purple.shade300.withOpacity(0.15),
+                    Colors.purple.shade200.withOpacity(0.1),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          // Subtle background pattern
           AnimatedOpacity(
-            opacity: 0.18,
-            duration: Duration(seconds: 1),
+            opacity: 0.08,
+            duration: const Duration(seconds: 2),
             child: Image.asset(
               'assets/images/bg.jpg',
               width: double.infinity,
@@ -144,443 +173,247 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
               fit: BoxFit.cover,
             ),
           ),
+          
           SafeArea(
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  // Enhanced header section
                   Padding(
-                    padding: const EdgeInsets.only(top: 48.0, bottom: 8.0),
+                    padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
                     child: Hero(
                       tag: 'logo',
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.contain,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ),
+                  
+                  // Enhanced title section
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white.withOpacity(0.15),
+                          Colors.white.withOpacity(0.05),
+                        ],
+                      ),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.2),
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      'Enter Compression Parameters',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.8,
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  
                   if (engineType == 'Two Stroke')
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.orange.shade50.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.orange.shade50.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(14),
                           border: Border.all(color: Colors.orange.shade200, width: 1.2),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(12.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.info_outline, color: Colors.orange.shade700, size: 28),
-                              const SizedBox(width: 12),
+                              Icon(Icons.info_outline, color: Colors.orange.shade700, size: 22),
+                              const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
                                   'Note: Two-stroke engine compression ratios are typically lower (6:1 to 8:1) and are often measured as cranking compression (psi/bar) rather than geometric ratio. This calculator provides a geometric estimate. For best results, compare with manufacturer specs or use a compression tester.',
-                                  style: TextStyle(color: Colors.orange.shade900, fontSize: 15),
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.orange.shade900, 
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
+                        ),
                       ),
                     ),
-                  ),
+                  
+                  const SizedBox(height: 15),
+                  
+                  // Enhanced form section
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-                    child: Card(
-                      elevation: 14,
-                      shadowColor: Colors.blue.shade100,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-                      color: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(0.95),
+                            Colors.white.withOpacity(0.85),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                            spreadRadius: 3,
+                          ),
+                        ],
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.3),
+                          width: 1,
+                        ),
+                      ),
                       child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Form(
                           key: _formKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // Form header
                               Row(
                                 children: [
-                                  Icon(Icons.engineering, color: Colors.blue.shade700, size: 18),
+                                  Container(
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      color: Colors.purple.shade600.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Icon(
+                                      Icons.compress,
+                                      color: Colors.purple.shade700,
+                                      size: 20,
+                                    ),
+                                  ),
                                   const SizedBox(width: 10),
-                                  Text('Compression Ratio Input',
-                                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                            color: Colors.blue.shade700,
-                                            fontWeight: FontWeight.bold,
-                                            letterSpacing: 1.1,
-                                            fontSize: 12,
-                                          )),
+                                  Text(
+                                    'Compression Parameters',
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.purple.shade800,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                    ),
+                                  ),
                                 ],
                               ),
-                              const SizedBox(height: 18),
-                              Divider(thickness: 1.5, color: Colors.blueGrey.shade100),
-                              const SizedBox(height: 18),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Diameter of the cylinder in mm',
-                                  child: TextFormField(
-                                controller: _boreController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Bore (mm)',
-                                  helperText: 'Diameter of the cylinder',
-                                      prefixIcon: Icon(Icons.circle, color: Colors.blueAccent),
-                                  filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                ),
-                                keyboardType: TextInputType.number,
-                                validator: (value) => value == null || value.isEmpty ? 'Enter bore' : null,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Distance piston travels in mm',
-                                  child: TextFormField(
-                                controller: _strokeController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Stroke (mm)',
-                                  helperText: 'Distance piston travels',
-                                      prefixIcon: Icon(Icons.height, color: Colors.deepPurple),
-                                  filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                ),
-                                keyboardType: TextInputType.number,
-                                validator: (value) => value == null || value.isEmpty ? 'Enter stroke' : null,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Combustion chamber volume in cc',
-                                  child: TextFormField(
-                                controller: _chamberController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Chamber Volume (cc)',
-                                  helperText: 'Combustion chamber volume',
-                                      prefixIcon: Icon(Icons.science, color: Colors.teal),
-                                  filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                ),
-                                keyboardType: TextInputType.number,
-                                validator: (value) => value == null || value.isEmpty ? 'Enter chamber volume' : null,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Piston dome (+) or dish (-) volume in cc',
-                                  child: TextFormField(
-                                controller: _pistonController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Piston Dome/Dish (cc)',
-                                  helperText: 'Piston dome (+) or dish (-) volume',
-                                      prefixIcon: Icon(Icons.circle_outlined, color: Colors.pink),
-                                  filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                ),
-                                keyboardType: TextInputType.number,
-                                validator: (value) => value == null || value.isEmpty ? 'Enter piston dome/dish' : null,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Head gasket volume in cc',
-                                  child: TextFormField(
-                                controller: _gasketController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Gasket Thickness (cc)',
-                                  helperText: 'Head gasket volume',
-                                      prefixIcon: Icon(Icons.layers, color: Colors.amber),
-                                  filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                ),
-                                keyboardType: TextInputType.number,
-                                validator: (value) => value == null || value.isEmpty ? 'Enter gasket thickness' : null,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.white.withOpacity(0.55),
-                                      Colors.blue.shade50.withOpacity(0.35),
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.shade100.withOpacity(0.25),
-                                      blurRadius: 16,
-                                      offset: Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Colors.blue.shade100.withOpacity(0.7),
-                                  ),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                foregroundDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  color: Colors.white.withOpacity(0.05),
-                                  backgroundBlendMode: BlendMode.overlay,
-                                ),
-                                child: Tooltip(
-                                  message: 'Number of cylinders in the engine',
-                                  child: TextFormField(
-                                controller: _cylindersController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Cylinders',
-                                  helperText: 'Number of cylinders',
-                                      prefixIcon: Icon(Icons.confirmation_number, color: Colors.green),
-                                  filled: true,
-                                      fillColor: Colors.transparent,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFFB3E5FC), width: 1.2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                                        borderSide: BorderSide(color: Color(0xFF0288D1), width: 2),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
-                                ),
-                                keyboardType: TextInputType.number,
-                                validator: (value) => value == null || value.isEmpty ? 'Enter cylinders' : null,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 32),
-                              Center(
-                                child: ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue.shade700,
-                                    foregroundColor: Colors.white,
-                                    padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                                    elevation: 10,
-                                  ),
-                                  onPressed: _calculateCompression,
-                                  icon: const Icon(Icons.calculate),
-                                  label: const Text('Calculate'),
-                                ),
-                              ),
-                              const SizedBox(height: 24),
                               
-                              if (_error != null)
+                              const SizedBox(height: 15),
+                              
+                              // Enhanced input fields
+                              _buildInputField(
+                                controller: _boreController,
+                                label: 'Bore Diameter',
+                                hint: 'Enter bore in mm',
+                                icon: Icons.circle_outlined,
+                                color: const Color(0xFF2196F3),
+                              ),
+                              
+                              const SizedBox(height: 12),
+                              
+                              _buildInputField(
+                                controller: _strokeController,
+                                label: 'Stroke Length',
+                                hint: 'Enter stroke in mm',
+                                icon: Icons.straighten,
+                                color: const Color(0xFF4CAF50),
+                              ),
+                              
+                              const SizedBox(height: 12),
+                              
+                              _buildInputField(
+                                controller: _chamberController,
+                                label: 'Chamber Volume',
+                                hint: 'Enter chamber volume in cc',
+                                icon: Icons.science,
+                                color: const Color(0xFF9C27B0),
+                              ),
+                              
+                              const SizedBox(height: 12),
+                              
+                              _buildInputField(
+                                controller: _pistonController,
+                                label: 'Piston Dome/Dish',
+                                hint: 'Enter piston volume in cc (+/-)',
+                                icon: Icons.circle_outlined,
+                                color: const Color(0xFFE91E63),
+                              ),
+                              
+                              const SizedBox(height: 12),
+                              
+                              _buildInputField(
+                                controller: _gasketController,
+                                label: 'Gasket Volume',
+                                hint: 'Enter gasket volume in cc',
+                                icon: Icons.layers,
+                                color: const Color(0xFFFF9800),
+                              ),
+                              
+                              const SizedBox(height: 12),
+                              
+                              _buildInputField(
+                                controller: _cylindersController,
+                                label: 'Number of Cylinders',
+                                hint: 'Enter cylinder count',
+                                icon: Icons.view_column,
+                                color: const Color(0xFF607D8B),
+                              ),
+                              
+                              const SizedBox(height: 20),
+                              
+                              // Enhanced calculate button
+                              Container(
+                                width: double.infinity,
+                                height: 50,
+                                child: TextButton(
+                                  onPressed: _calculateCompression,
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.purple.shade600,
+                                    elevation: 6,
+                                    shadowColor: Colors.purple.shade300,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Calculate',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              
+                              if (_error != null) ...[
+                                const SizedBox(height: 12),
                                 Container(
-                                  padding: const EdgeInsets.all(16),
+                                  padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
+                                    borderRadius: BorderRadius.circular(14),
                                     gradient: LinearGradient(
                                       colors: [
                                         Colors.red.shade400.withOpacity(0.2),
@@ -595,37 +428,40 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
                                   child: Row(
                                     children: [
                                       Container(
-                                        padding: const EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(6),
                                         decoration: BoxDecoration(
                                           color: Colors.red.shade500.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(8),
                                         ),
                                         child: Icon(
                                           Icons.error,
                                           color: Colors.red.shade600,
-                                          size: 24,
+                                          size: 20,
                                         ),
                                       ),
-                                      const SizedBox(width: 16),
+                                      const SizedBox(width: 12),
                                       Expanded(
                                         child: Text(
                                           _error!,
                                           style: GoogleFonts.poppins(
                                             color: Colors.red.shade800,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 16,
+                                            fontSize: 14,
                                           ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
+                              ],
                             ],
                           ),
                         ),
                       ),
                     ),
                   ),
+                  
+                  const SizedBox(height: 15),
                 ],
               ),
             ),
@@ -635,4 +471,88 @@ class _CompressionCalculatorPageState extends State<CompressionCalculatorPage> {
     );
   }
   
+  Widget _buildInputField({
+    required TextEditingController controller,
+    required String label,
+    required String hint,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(
+              icon,
+              color: color,
+              size: 18,
+            ),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: GoogleFonts.poppins(
+                color: Colors.purple.shade800,
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        TextFormField(
+          controller: controller,
+          keyboardType: TextInputType.number,
+          style: GoogleFonts.poppins(
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+            color: Colors.purple.shade800,
+          ),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: GoogleFonts.poppins(
+              color: Colors.purple.shade400,
+              fontSize: 13,
+            ),
+            filled: true,
+            fillColor: Colors.white.withOpacity(0.8),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: color.withOpacity(0.3),
+                width: 1.2,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: color.withOpacity(0.3),
+                width: 1.2,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: color,
+                width: 1.8,
+              ),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 14,
+            ),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a value';
+            }
+            if (double.tryParse(value) == null) {
+              return 'Please enter a valid number';
+            }
+            return null;
+          },
+        ),
+      ],
+    );
+  }
 } 

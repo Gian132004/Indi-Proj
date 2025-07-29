@@ -149,16 +149,16 @@ class _InputPageState extends State<InputPage> {
                 children: [
                   // Enhanced header section
                   Padding(
-                    padding: const EdgeInsets.only(top: 25.0, bottom: 15.0),
+                    padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
                     child: Hero(
                       tag: 'logo',
                       child: Material(
                         color: Colors.transparent,
-                            child: Image.asset(
-                              'assets/images/logo.png',
-                          width: 120,
-                          height: 120,
-                              fit: BoxFit.contain,
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -166,10 +166,10 @@ class _InputPageState extends State<InputPage> {
                   
                   // Enhanced title section
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 24.0),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(16),
                       gradient: LinearGradient(
                         colors: [
                           Colors.white.withOpacity(0.15),
@@ -186,21 +186,21 @@ class _InputPageState extends State<InputPage> {
                       style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
-                        letterSpacing: 1.1,
-                        fontSize: 22,
+                        letterSpacing: 0.8,
+                        fontSize: 18,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   
                   // Enhanced form section
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
+                        borderRadius: BorderRadius.circular(20),
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -212,9 +212,9 @@ class _InputPageState extends State<InputPage> {
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.1),
-                            blurRadius: 30,
-                            offset: const Offset(0, 15),
-                            spreadRadius: 5,
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                            spreadRadius: 3,
                           ),
                         ],
                         border: Border.all(
@@ -223,7 +223,7 @@ class _InputPageState extends State<InputPage> {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -233,30 +233,30 @@ class _InputPageState extends State<InputPage> {
                               Row(
                                 children: [
                                   Container(
-                                    padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
                                       color: Colors.blue.shade600.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Icon(
                                       Icons.engineering,
                                       color: Colors.blue.shade700,
-                                      size: 24,
+                                      size: 20,
                                     ),
                                   ),
-                                  const SizedBox(width: 12),
+                                  const SizedBox(width: 10),
                                   Text(
                                     'Engine Parameters',
                                     style: GoogleFonts.poppins(
                                       color: Colors.blue.shade800,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],
                               ),
                               
-                              const SizedBox(height: 18),
+                              const SizedBox(height: 15),
                               
                               // Enhanced input fields
                               _buildInputField(
@@ -267,65 +267,49 @@ class _InputPageState extends State<InputPage> {
                                 color: const Color(0xFF2196F3),
                               ),
                               
-                              const SizedBox(height: 16),
+                              const SizedBox(height: 12),
                               
                               _buildInputField(
-                                    controller: _strokeController,
+                                controller: _strokeController,
                                 label: 'Stroke Length',
                                 hint: 'Enter stroke in mm',
                                 icon: Icons.straighten,
                                 color: const Color(0xFF4CAF50),
                               ),
                               
-                              const SizedBox(height: 16),
+                              const SizedBox(height: 12),
                               
                               _buildInputField(
-                                    controller: _cylindersController,
+                                controller: _cylindersController,
                                 label: 'Number of Cylinders',
                                 hint: 'Enter cylinder count',
                                 icon: Icons.view_column,
                                 color: const Color(0xFFFF9800),
                               ),
                               
-                              const SizedBox(height: 16),
-                              
-
-                              
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 20),
                               
                               // Enhanced calculate button
-                              SizedBox(
+                              Container(
                                 width: double.infinity,
-                                height: 56,
-                                child: ElevatedButton(
+                                height: 50,
+                                child: TextButton(
                                   onPressed: _calculateAndNavigate,
-                                  style: ElevatedButton.styleFrom(
+                                  style: TextButton.styleFrom(
                                     backgroundColor: Colors.blue.shade600,
-                                    foregroundColor: Colors.white,
-                                    elevation: 8,
+                                    elevation: 6,
                                     shadowColor: Colors.blue.shade300,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
+                                      borderRadius: BorderRadius.circular(14),
                                     ),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.calculate,
-                                        size: 24,
-                                        color: Colors.white,
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Text(
-                                        'Calculate Displacement',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
+                                  child: Text(
+                                    'Calculate',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -336,7 +320,7 @@ class _InputPageState extends State<InputPage> {
                     ),
                   ),
                   
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                 ],
               ),
             ),
@@ -361,25 +345,25 @@ class _InputPageState extends State<InputPage> {
             Icon(
               icon,
               color: color,
-              size: 20,
+              size: 18,
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 6),
             Text(
               label,
               style: GoogleFonts.poppins(
                 color: Colors.blue.shade800,
                 fontWeight: FontWeight.w600,
-                fontSize: 14,
+                fontSize: 13,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         TextFormField(
           controller: controller,
           keyboardType: TextInputType.number,
           style: GoogleFonts.poppins(
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
             color: Colors.blue.shade800,
           ),
@@ -387,34 +371,34 @@ class _InputPageState extends State<InputPage> {
             hintText: hint,
             hintStyle: GoogleFonts.poppins(
               color: Colors.blue.shade400,
-              fontSize: 14,
+              fontSize: 13,
             ),
             filled: true,
             fillColor: Colors.white.withOpacity(0.8),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
                 color: color.withOpacity(0.3),
-                width: 1.5,
+                width: 1.2,
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
                 color: color.withOpacity(0.3),
-                width: 1.5,
+                width: 1.2,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
                 color: color,
-                width: 2,
+                width: 1.8,
               ),
             ),
             contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
+              horizontal: 14,
+              vertical: 14,
             ),
           ),
           validator: (value) {

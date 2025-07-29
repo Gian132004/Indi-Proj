@@ -5,21 +5,20 @@ import 'pages/input_page.dart';
 import 'pages/result_page.dart';
 import 'pages/compression_calculator_page.dart';
 import 'pages/compression_result_page.dart';
-import 'pages/top_speed_calculator_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 // (Compression and Top Speed calculator imports will be added later)
 
 void main() {
-  runApp(const EngineCalcApp());
+  runApp(const MotoRunApp());
 }
 
-class EngineCalcApp extends StatelessWidget {
-  const EngineCalcApp({super.key});
+class MotoRunApp extends StatelessWidget {
+  const MotoRunApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Engine Calculator',
+      title: 'MotoRun',
       debugShowCheckedModeBanner: false, // Hide debug banner for polish
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -138,9 +137,6 @@ class EngineCalcApp extends StatelessWidget {
             break;
           case '/compression_result':
             builder = (context) => const CompressionResultPage();
-            break;
-          case '/top_speed':
-            builder = (context) => const TopSpeedCalculatorPage();
             break;
           default:
             builder = (context) => const LandingPage();

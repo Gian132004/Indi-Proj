@@ -26,7 +26,7 @@ class LandingPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Engine Calculator',
+          'MotoRun',
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w700,
             fontSize: 20,
@@ -184,7 +184,7 @@ class LandingPage extends StatelessWidget {
                         _buildEngineButton(
                           context: context,
                           title: 'Four Stroke',
-                          subtitle: 'Most motorcycles & cars',
+                          subtitle: 'Most motorcycles that dont use 2t',
                           icon: Icons.precision_manufacturing,
                           color: const Color(0xFF4CAF50),
                           onPressed: () => _selectEngineType(context, 'Four Stroke'),
@@ -196,7 +196,7 @@ class LandingPage extends StatelessWidget {
                         _buildEngineButton(
                           context: context,
                           title: 'Two Stroke',
-                          subtitle: 'Some motorcycles & small engines',
+                          subtitle: 'Some motorcycles that use 2t',
                           icon: Icons.motorcycle,
                           color: const Color(0xFFFF9800),
                           onPressed: () => _selectEngineType(context, 'Two Stroke'),
@@ -216,7 +216,7 @@ class LandingPage extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            'Calculate engine displacement, compression ratio, and top speed with precision.',
+                            'Calculate engine displacement and compression ratio with precision.',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
                               color: Colors.white.withOpacity(0.9),

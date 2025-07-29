@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'input_page.dart';
 import 'compression_calculator_page.dart';
-import 'top_speed_calculator_page.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -27,8 +26,6 @@ class MenuPage extends StatelessWidget {
         return const InputPage();
       case '/compression':
         return const CompressionCalculatorPage();
-      case '/top_speed':
-        return const TopSpeedCalculatorPage();
       default:
         return const InputPage();
     }
@@ -253,17 +250,6 @@ class MenuPage extends StatelessWidget {
                           icon: Icons.compress,
                           color: const Color(0xFF9C27B0),
                           onPressed: () => _navigate(context, '/compression', engineType),
-                        ),
-                        
-                        const SizedBox(height: 14),
-                        
-                        _buildCalculatorButton(
-                          context: context,
-                          title: 'Top Speed',
-                          subtitle: 'Calculate max speed',
-                          icon: Icons.speed_outlined,
-                          color: const Color(0xFFF44336),
-                              onPressed: () => _navigate(context, '/top_speed', engineType),
                         ),
                         
                         const SizedBox(height: 25),

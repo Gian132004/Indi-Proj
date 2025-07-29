@@ -1,6 +1,6 @@
 {
-      "name": "Engine Calculator",
-  "short_name": "Engine Calculator",
+      "name": "MotoRun",
+  "short_name": "MotoRun",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#hexcode",
