@@ -25,6 +25,7 @@ class LandingPage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'MotoRun',
           style: GoogleFonts.poppins(

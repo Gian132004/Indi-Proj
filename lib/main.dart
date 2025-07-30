@@ -117,9 +117,11 @@ class MotoRunApp extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         ),
       ),
+      initialRoute: '/',
       onGenerateRoute: (settings) {
         WidgetBuilder builder;
         switch (settings.name) {
+          
           case '/':
             builder = (context) => const LandingPage();
             break;
